@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+
+function submitInfo(ucid, password) {
+    var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("output1").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("POST", "login.php?ucid=" + ucid + "&password=" + password, true);
+        xmlhttp.send();
+        
+}
+</script>
+</head>
+<body>
+<form>
+    <p>UCID: </p><input type="text" name="ucid"/>
+    <p>PASSWORD: </p><input type="text" name="password"/></br>
+    <button type="button" onclick="submitInfo(ucid.value, password.value)">submit</button>
+</form>
+<p>Response: <span id="output1"></span></p></br>
+</body>
+</html>
