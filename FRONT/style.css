@@ -1,0 +1,62 @@
+body {
+	font-family: 'Roboto Condensed', sans-serif;
+	background-color: #f4f4f4;
+
+}
+
+p {
+	margin: 0 auto;
+}
+
+button {
+	margin: 20px auto;
+}
+.container {
+	text-align: center;
+	color: white;
+	
+	background-color: #bababa;
+	
+	border-radius: 2px;
+	border-style: solid;
+	border-color: red;
+	border-width: 2px;
+	
+	margin: 80px auto 0;
+	max-width: 400px;
+	
+	padding-top: 30px;
+}
+
+#njitPass {
+	font-size: 130%;
+}
+
+#backendPass {
+	font-size: 130%;
+} 
+
+#rawJSON {
+	font-size: 80%;
+	font-family: serif;
+	color: black;
+}
+/*
+body, html {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	display:table;
+}
+body {
+	text-align: center;
+	display:table-cell;
+	vertical-align:middle;
+	background-color: tan;
+}
+form {
+	display:table;
+	margin:auto;
+}
+*/

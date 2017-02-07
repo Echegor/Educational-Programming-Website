@@ -1,44 +1,56 @@
 <!DOCTYPE html>
 <html>
-<head>
-<script>
 
-function submitInfo(ucid, password) {
-    var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                var rawResponse = this.responseText;
-                var response = JSON.parse(rawResponse);
-                
-                if (response.NJIT == 1) {
-                    document.getElementById("njitPass").innerHTML = "NJIT LOGIN OK!";
-                } else {
-                    document.getElementById("njitPass").innerHTML = "NJIT LOGIN FAILED";
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <script>
+        function submitInfo(ucid, password) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var rawResponse = this.responseText;
+                    var response = JSON.parse(rawResponse);
+
+                    if (response.NJIT == 1) {
+                        document.getElementById("njitPass").innerHTML = "NJIT LOGIN OK!";
+                        document.getElementById("njitPass").style.color = "green";
+                    } else {
+                        document.getElementById("njitPass").innerHTML = "NJIT LOGIN FAILED";
+                        document.getElementById("njitPass").style.color = "red";
+                    }
+
+                    if (response.BACKEND == 1) {
+                        document.getElementById("backendPass").innerHTML = "BACKEND LOGIN OK!";
+                        document.getElementById("backendPass").style.color = "green";
+                    } else {
+                        document.getElementById("backendPass").innerHTML = "BACKEND LOGIN FAILED";
+                        document.getElementById("backendPass").style.color = "red";
+                    }
+
+                    document.getElementById("rawJSON").innerHTML = "Raw JSON: " + this.responseText;
+
                 }
-                
-                if (response.BACKEND == 1) {
-                    document.getElementById("backendPass").innerHTML = "BACKEND LOGIN OK!";
-                } else {
-                    document.getElementById("backendPass").innerHTML = "BACKEND LOGIN FAILED";
-                }
-                
-                document.getElementById("rawJSON").innerHTML = "Raw JSON: " + this.responseText;
-                
-            }
-        };
-        xmlhttp.open("POST", "login.php?ucid=" + ucid + "&password=" + password, true);
-        xmlhttp.send();
-        
-}
-</script>
+            };
+            xmlhttp.open("POST", "login.php?ucid=" + ucid + "&password=" + password, true);
+            xmlhttp.send();
+
+        }
+    </script>
 </head>
+
 <body>
-<form>
-    <p>UCID: </p><input type="text" name="ucid"/>
-    <p>PASSWORD: </p><input type="password" name="password"/></br>
-    <button type="button" onclick="submitInfo(ucid.value, password.value)">submit</button>
-</form>
-<p><span id="njitPass"></span></br><span id="backendPass"></span></p>
-<p><span id="rawJSON"></span></p></br>
+    <form id="form_login">
+        <div class="container">
+            <p>UCID: </p><input type="text" name="ucid" />
+            <p>PASSWORD: </p><input type="password" name="password" /></br>
+            <button type="button" onclick="submitInfo(ucid.value, password.value)">submit</button>
+    </form>
+    <p><span id="njitPass"></span></br><span id="backendPass"></span></p>
+    <p><span id="rawJSON"></span></p>
+    </br>
+    </div>
+
 </body>
+
 </html>
