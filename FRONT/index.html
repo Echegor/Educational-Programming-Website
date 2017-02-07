@@ -7,7 +7,23 @@ function submitInfo(ucid, password) {
     var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("output1").innerHTML = this.responseText;
+                var rawResponse = this.responseText;
+                var response = JSON.parse(rawResponse);
+                
+                if (response.NJIT == 1) {
+                    document.getElementById("njitPass").innerHTML = "NJIT LOGIN OK!";
+                } else {
+                    document.getElementById("njitPass").innerHTML = "NJIT LOGIN FAILED";
+                }
+                
+                if (response.BACKEND == 1) {
+                    document.getElementById("backendPass").innerHTML = "BACKEND LOGIN OK!";
+                } else {
+                    document.getElementById("backendPass").innerHTML = "BACKEND LOGIN FAILED";
+                }
+                
+                document.getElementById("rawJSON").innerHTML = "Raw JSON: " + this.responseText;
+                
             }
         };
         xmlhttp.open("POST", "login.php?ucid=" + ucid + "&password=" + password, true);
@@ -22,6 +38,7 @@ function submitInfo(ucid, password) {
     <p>PASSWORD: </p><input type="password" name="password"/></br>
     <button type="button" onclick="submitInfo(ucid.value, password.value)">submit</button>
 </form>
-<p>Response: <span id="output1"></span></p></br>
+<p><span id="njitPass"></span></br><span id="backendPass"></span></p>
+<p><span id="rawJSON"></span></p></br>
 </body>
 </html>
