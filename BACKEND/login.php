@@ -1,3 +1,8 @@
+//James Restrepo
+//CS-490
+//Back End
+//Spring 2017
+
 <?php
 //Database connection.
 $host = "sql1.njit.edu";
