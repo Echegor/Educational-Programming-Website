@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<script type="text/javascript" src="../js/scripts.js"></script>
+    <script type="text/javascript" src="../js/templateEngine.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div id="sidebar" class="col-md-4">
+				<p>Responses:</p>
+			</div>
+			<div class = "col-md-8">
+				<form id="question-form">
+					Name:<input type="text" name="nameField" /></br>
+					Weight:<input type="text" name="weight" /></br>
+					Category:<input type="text" name="category" /></br>
+					Prompt:<input type="text" name="prompt" /></br>
+					Test Input:<input type="text" name="input" /></br>
+					Test Output:<input type="text" name="output" /></br>
+					<button type="button" onclick="addQuestion(nameField.value, weight.value, category.value, prompt.value, input.value, output.value)">submit</button>
+				</form>
+			</div>
+		</div>
+		
+	</div>
+	
+</body>
+
+</html>
