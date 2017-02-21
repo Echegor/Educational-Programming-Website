@@ -5,7 +5,7 @@ $category = $_REQUEST["category"];
 $prompt = $_REQUEST["prompt"];
 $input = $_REQUEST["input"];
 $output = $_REQUEST["output"];
-$postfieldsRaw = array("name" => $name,
+$postfieldsRaw = array("title" => $name,
                     "weight" => $weight,
                     "category" => $category,
                     "prompt" => $prompt,
