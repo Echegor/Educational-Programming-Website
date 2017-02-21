@@ -13,6 +13,6 @@ function getTemplate(url) {
 
 function addQuestionCell(item) {
 	var questionCellHTML = getTemplate("../templates/questionCell.html");
-	questionCellHTML.querySelector(".title").innerHTML = item.name;
+	questionCellHTML.querySelector(".title").innerHTML = item.title;
 	document.getElementById("sidebar").innerHTML = document.getElementById("sidebar").innerHTML + questionCellHTML.innerHTML;
 }
