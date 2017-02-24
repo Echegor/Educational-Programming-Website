@@ -1,24 +1,17 @@
 <?php
-	require_once "logger.php";
+	require_once "util.php";
 	require_once "postHelper.php";
-	$input = file_get_contents('php://input');
-	//here I check if I got a POST command
-	logToFileFrontEnd($input,__FILE__);
-	if($input==FALSE){
-		echo "BEGIN Dumping php://input due to bad input<br>";
-		var_dump($input);
-		echo "DONE OUTPUTTING BAD INPUT";
-	}
-	else {
-		$parsedInput = json_decode($input,true);
-		//var_dump($parsedInput);
-		//here I add stuff to the associate array I got
-		$parsedInput['NJIT'] = loginToNJIT($parsedInput['username'],$parsedInput['password']);
-		//just add BACKEND to your $parsedInput with 0 or 1 for the result.
-		$parsedInput['BACKEND'] = loginToBackEnd($parsedInput);
-		//here is how I reply
-		echo json_encode($parsedInput);
-	}
+
+	$parsedInput = processInput(file_get_contents('php://input'));
+
+	//var_dump($parsedInput);
+	//here I add stuff to the associate array I got
+	$parsedInput['NJIT'] = loginToNJIT($parsedInput['username'],$parsedInput['password']);
+	//just add BACKEND to your $parsedInput with 0 or 1 for the result.
+	$parsedInput['BACKEND'] = loginToBackEnd($parsedInput);
+	//here is how I reply
+	echo json_encode($parsedInput);
+
 	function loginToNJIT($username, $password){
 		$infoArray = array(
 			"user" => $username,
