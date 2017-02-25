@@ -17,22 +17,12 @@ $curl = curl_init();
 curl_setopt_array($curl, array(
     CURLOPT_RETURNTRANSFER => 1,
     CURLOPT_URL => 'https://web.njit.edu/~lme4/addQuestion.php',
-    CURLOPT_USERAGENT => 'Test',
+    CURLOPT_USERAGENT => 'Add Question',
     CURLOPT_POST => 1,
     CURLOPT_POSTFIELDS => $postfields,
 ));
 $result = curl_exec($curl);
 curl_close($curl);
 echo $result;
-//echo $postfields;
-
-/*$curl = curl_init();
-curl_setopt_array($curl, array(
-    CURLOPT_RETURNTRANSFER => 1,
-    CURLOPT_URL => 'https://jsonplaceholder.typicode.com/posts',
-    ));
-$result = curl_exec($curl);
-curl_close($curl);
-echo $result;*/
 
 ?>

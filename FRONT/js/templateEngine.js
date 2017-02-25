@@ -12,7 +12,29 @@ function getTemplate(url) {
 
 
 function addQuestionCell(item) {
-	var questionCellHTML = getTemplate("../templates/questionCell.html");
+	var questionCellHTML = getTemplate("templates/questionCell.html");
 	questionCellHTML.querySelector(".title").innerHTML = item.title;
 	document.getElementById("sidebar").innerHTML = document.getElementById("sidebar").innerHTML + questionCellHTML.innerHTML;
+}
+
+
+function addQuestionButton(item) {
+	var questionButtonHTML = getTemplate("templates/questionButton.html");
+	questionButtonHTML.querySelector(".title").innerHTML = item.title;
+	questionButtonHTML.querySelector(".id").innerHTML = item.id;
+	document.getElementById("questionList").innerHTML = document.getElementById("questionList").innerHTML + questionButtonHTML.innerHTML;
+}
+
+function addTestButton(item) {
+	var testCellHTML = getTemplate("templates/testButton.html");
+	testCellHTML.querySelector(".title").innerHTML = item.title;
+	testCellHTML.querySelector(".id").innerHTML = item.id;
+	document.getElementById("testList").innerHTML = document.getElementById("testList").innerHTML + testCellHTML.innerHTML;
+}
+
+function addTestForm(item) {
+	var testFormHTML = getTemplate("templates/testForm.html");
+	testFormHTML.querySelector(".prompt").innerHTML = item.prompt;
+	testFormHTML.querySelector(".questionId").innerHTML = item.questionId;
+	document.getElementById("testForm").innerHTML = testFormHTML.innerHTML + document.getElementById("testForm").innerHTML;
 }

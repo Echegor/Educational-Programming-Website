@@ -1,40 +1,59 @@
-function submitInfo(ucid, password) {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var rawResponse = this.responseText;
-            var response = JSON.parse(rawResponse);
-            if (response.NJIT == 1) {
-                document.getElementById("njitPass").innerHTML = "NJIT LOGIN OK!";
-                document.getElementById("njitPass").style.color = "green";
-            } else {
-                document.getElementById("njitPass").innerHTML = "NJIT LOGIN FAILED";
-                document.getElementById("njitPass").style.color = "red";
-            }
-            if (response.BACKEND == 1) {
-                document.getElementById("backendPass").innerHTML = "BACKEND LOGIN OK!";
-                document.getElementById("backendPass").style.color = "green";
-            } else {
-                document.getElementById("backendPass").innerHTML = "BACKEND LOGIN FAILED";
-                document.getElementById("backendPass").style.color = "red";
-            }
-        }
-    };
-    xmlhttp.open("POST", "network.php?ucid=" + ucid + "&password=" + password, true);
-    xmlhttp.send();
+function login(username, password) {
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var rawResponse = this.responseText;
+			var response = JSON.parse(rawResponse);
+			
+			createCookie("userId", response.userId);
+			createCookie("firstName", response.firstName);
+			createCookie("lastName", response.lastName);
+			createCookie("roleId", response.roleId);
+			
+			if (response.roleId == 1) { // Student
+				window.location.href = "studentLanding.html";
+			} else if (response.roleId == 2) { // Instructor
+				window.location.href = "instructorLanding.html";
+			} else {
+				console.log("Couldn't resolve roleId!");
+				document.getElementById("errors").innerHTML = "Couldn't resolve roleId!";
+			}
+		}
+	};
+	xmlhttp.open("POST", "php/login.php?username=" + username + "&password=" + password, true);
+	xmlhttp.send();
 }
 
-function addQuestion(name, weight, category, prompt, input, output) {
-	var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var rawResponse = this.responseText;
-            var response = JSON.parse(rawResponse);
-            addQuestionCell(response);
+function register(username, password, accountType) {
+	 var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var rawResponse = this.responseText;
+			var response = JSON.parse(rawResponse);
+		}
+	};
+	xmlhttp.open("POST", "php/register.php?username=" + username + "&password=" + password + "&accountType" + accountType, true);
+	xmlhttp.send();
+}
+
+function createCookie(cookieName, cookieValue) {
+	document.cookie = cookieName + "=" + cookieValue + "; path=/";
+}
+
+
+function getCookie(cname) {
+	// source: https://www.w3schools.com/js/js_cookies.asp
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
         }
-    };
-    
-    xmlhttp.open("POST", "../php/addQuestion.php?name=" + name + "&weight=" + weight +
-    	"&category=" + category + "&prompt=" + prompt + "&input=" + input + "&output=" + output, true);
-    xmlhttp.send();
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }

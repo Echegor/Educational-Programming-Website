@@ -1,0 +1,50 @@
+function getTestDetail(testId) {
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var rawResponse = this.responseText;
+			var response = JSON.parse(rawResponse);
+			
+			for (var i = 0; i < response.questions.length; i++) {
+				addTestForm(response.questions[i]);
+			}
+			
+		}
+	};
+	xmlhttp.open("POST", "php/getTestDetail.php?testId=" + testId, true);
+	xmlhttp.send();
+}
+
+function submitTest() {
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var rawResponse = this.responseText;
+			var response = JSON.parse(rawResponse);
+			
+			for (var i = 0; i < response.questions.length; i++) {
+				addTestForm(response.questions[i]);
+			}
+			
+		}
+	};
+	
+	var elements = document.getElementById("testForm").elements;
+	var answers = [];
+	for (var i = 0; i < elements.length-1; i++) {
+		var element = elements[i];
+		if (element.type === "text" && element.name === "answer") {
+			var answer;
+			answer.questionId = element.querySelector(".questionId").innerHTML;
+			answer.answer = element.getElementById("answer").value;
+			answers.push(answer);
+		}
+	}
+	
+	var testSubmit;
+	testSubmit.testId = getTestDetail(getCookie("testId"));
+	testSubmit.answers = answers;
+	
+	xmlhttp.open("POST", "php/submitTest.php?testSubmit=" + JSON.parse(testSubmit), true);
+	xmlhttp.send();
+}
