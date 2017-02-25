@@ -9,4 +9,14 @@
 	require_once "postHelper.php";
 
 	$parsedInput = processInput(file_get_contents('php://input'));
+
+	$code = "public class CodeGrader{
+				public static void main(String [] args)
+				{
+					THISISWHERETHECODEGOES
+				}
+			}";
+
+	$code = str_replace("THISISWHERETHECODEGOES",$parsedInput['prompt'],$code);
+	echo $code;
 ?>

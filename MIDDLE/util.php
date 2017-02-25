@@ -29,7 +29,7 @@
 		}
 		else {
 			$parsedInput = json_decode($input,true);
-			echo "Luis has not gotten to this";
+			//echo "Luis has not gotten to this";
 			return $parsedInput;
 		}
 	}
