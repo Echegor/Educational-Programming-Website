@@ -1,9 +1,10 @@
 //James Restrepo
 //CS-490
-//Back End
+//Back End - Login
 //Spring 2017
 
 <?php
+/*
 //Database connection.
 $host = "sql1.njit.edu";
 $user = "jjr27";
@@ -12,7 +13,10 @@ $db = "jjr27";
 
 mysql_connect($host, $user, $pass);
 mysql_select_db($db);
+*/
 
+//Include Configuration File.
+include('config.php');
 
 if (isset($_POST['username'])){
   //JSON response
