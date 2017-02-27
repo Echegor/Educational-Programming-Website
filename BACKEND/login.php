@@ -22,7 +22,7 @@ if (isset($_POST['username'])){
   $username = $_POST['username'];
   $password = $_POST['password'];
   
-  //SQL query tu run against the DB.
+  //SQL query to run against the DB.
   $sql = "SELECT * FROM TblUserCredentials WHERE username = '".$username."' AND password='".$password."'";
   //Get Result
   $res = mysql_query($sql) or die("Failed to query database " .mysql_error());
