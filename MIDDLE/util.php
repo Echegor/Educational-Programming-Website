@@ -16,10 +16,10 @@
 		fwrite($myfile,date("Y-m-d H:i:s") . " Received from back end:" . $inText . "\n");
 		fclose($myfile);
 	}
-	function processInput($input)
+	function processInput($input,$file)
 	{
 		//here I check if I got a POST command
-		logToFileFrontEnd($input,__FILE__);
+		logToFileFrontEnd($input,$file);
 		if($input==FALSE){
 			// echo "BEGIN Dumping php://input. Did not Submit POST";
 			// var_dump($input);
