@@ -15,7 +15,7 @@
   {    
     
     //SQL query tu run against the DB for INSERT.
-    $sql = "INSERT INTO TblUser (FirstName, LastName, UserName, Password, RoleID) VALUES('".$firstName."','".$lastName."','".$username."','".$password."', '".$roleId."'");
+    $sql = "INSERT INTO TblUser (FirstName, LastName, UserName, Password, RoleID) VALUES('".$firstName."','".$lastName."','".$username."','".$password."', '".$roleId."')";
     
     //Get Result
     $res = mysql_query($sql) or die("Failed to register user in database " .mysql_error());
@@ -23,13 +23,13 @@
     //Check for returned results
     if($res){      
       //Return json with successful transaction
-      $response["TransCompleted"] = 1
+      $response["TransCompleted"] = 1;
       
       //echo the JSON response
       echo json_encode($response);
     }else{
       //Return json with successful transaction
-      $response["TransCompleted"] = 0
+      $response["TransCompleted"] = 0;
       
       //echo the JSON response
       echo json_encode($response);
@@ -37,7 +37,7 @@
     
   }else{
     //Return json with successful transaction
-      $response["TransCompleted"] = 0
+      $response["TransCompleted"] = 0;
       
       //echo the JSON response
       echo json_encode($response);
