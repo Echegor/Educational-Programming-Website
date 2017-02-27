@@ -36,6 +36,10 @@
     }
     
   }else{
-    echo "No role ID";
+    //Return json with successful transaction
+      $response["TransCompleted"] = 0
+      
+      //echo the JSON response
+      echo json_encode($response);
   }
 ?>
