@@ -1,56 +1,42 @@
-//James Restrepo
-//CS-490
-//Back End - Login
-//Spring 2017
-
 <?php
-/*
-//Database connection.
-$host = "sql1.njit.edu";
-$user = "jjr27";
-$pass = "JS6RYpHk";
-$db = "jjr27";
-
-mysql_connect($host, $user, $pass);
-mysql_select_db($db);
-*/
-
-//Include Configuration File.
-include('config.php');
-
-if (isset($_POST['username'])){
+  require_once "config.php";
+  
   //JSON response
   $response = json_decode(file_get_contents('php://input'), true);
   
   //Credentials passed.
-  $username = $_POST['username'];
-  $password = $_POST['password'];
+  $username = $response['username'];
+  $password = $response['password'];
   
-  //SQL query to run against the DB.
-  $sql = "SELECT * FROM TblUserCredentials WHERE username = '".$username."' AND password='".$password."'";
-  //Get Result
-  $res = mysql_query($sql) or die("Failed to query database " .mysql_error());
-  
-  //Check for returned results
-  if (mysql_num_rows($res) == 1){
-  
-    //successfully loged in.
-    $response["BACKEND"] = 1;
-    //$response["message"] = "Welcome. You have successfully loged in!!";
+  if (isset($username)){
+    //SQL query tu run against the DB.
+    $sql = "SELECT * FROM TblUser WHERE username = '".$username."' AND password='".$password."'";
     
-    //echo the JSON response
-    echo json_encode($response);
-
-  }else{
+    //Get Result
+    $res = mysql_query($sql) or die("Failed to query database " .mysql_error());
+    
+    //Check for returned results
+    if (mysql_num_rows($res) == 1){
+    
+      //Get user row.
+      $userRow = mysql_fetch_assoc($res); 
+      
+      //successfully loged in.
+      $response["userId"] = (int)$userRow["UserID"];
+      $response["firstName"] = $userRow["FirstName"];
+      $response["lastName"] = $userRow["LastName"];
+      $response["roleId"] = (int)$userRow["RoleID"];
+      
+      //echo the JSON response
+      echo json_encode($response);
   
-    //Failed to login.
-    $response["BACKEND"] = 0;
-    //$response["message"] = "Invalid login information. Please return to previous page.";
-    
-    //echo the JSON response
-    echo json_encode($response);
-    
+    }else{
+      //Failed to login.
+      $response["roleId"] = 0;
+      
+      //echo the JSON response
+      echo json_encode($response);  
+    }
   }
-}
 
 ?>
