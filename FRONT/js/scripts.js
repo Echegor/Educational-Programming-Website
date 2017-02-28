@@ -24,7 +24,7 @@ function login(username, password) {
 	xmlhttp.send();
 }
 
-function register(username, password, accountType) {
+function register(username, password, accountType, firstName, lastName) {
 	 var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
@@ -32,7 +32,7 @@ function register(username, password, accountType) {
 			var response = JSON.parse(rawResponse);
 		}
 	};
-	xmlhttp.open("POST", "php/register.php?username=" + username + "&password=" + password + "&accountType" + accountType, true);
+	xmlhttp.open("POST", "php/register.php?username=" + username + "&password=" + password + "&accountType=" + accountType + "&firstName=" + firstName + "&lastName=" + lastName, true);
 	xmlhttp.send();
 }
 

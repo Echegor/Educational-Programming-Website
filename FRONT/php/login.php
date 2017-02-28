@@ -1,7 +1,7 @@
 <?php
 $username= $_REQUEST["username"];
-//$password = $_REQUEST["password"];
-$password = password_hash($_REQUEST["password"], PASSWORD_DEFAULT);
+$password = $_REQUEST["password"];
+//$password = password_hash($_REQUEST["password"], PASSWORD_DEFAULT);
 $postfieldsRaw = array("username" => $username,
                     "password" => $password);
                     
