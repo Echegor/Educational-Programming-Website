@@ -3,7 +3,6 @@
   require_once "config.php";
   /*
   $myObj = array(
-		  "question"  => "question1",
 		  "title"     => "Question1",
 	    "question"  => "This is the first question.",
 	    "alternAns" => "",
