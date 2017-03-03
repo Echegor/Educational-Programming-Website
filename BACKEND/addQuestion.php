@@ -3,20 +3,20 @@
   require_once "config.php";
   /*
   $myObj = array(
-		  'question'  => 'question1',
-		  'title'     => 'Question1',
-	    'question'  => 'This is the first question.',
-	    'alternAns' => '',
-	    'weight'    => 5,
-	    'CreatedBy' => 1,
-	    'creationDate' => '2014-03-12T13 => 37 => 27+00 => 00',
-	    'subjectId' => 1,
-	    'qstParameters' =>  array(
-	        array('parameter' => 'pm1', 'parameterType' => 'string' ),
-	        array('parameter' => 'pm2', 'parameterType' => 'int' ),
-	        array('parameter' => 'pm3', 'parameterType' => 'bool' )
+		  "question"  => "question1",
+		  "title"     => "Question1",
+	    "question"  => "This is the first question.",
+	    "alternAns" => "",
+	    "weight"    => 5,
+	    "CreatedBy" => 1,
+	    "creationDate" => "2014-03-12T13 => 37 => 27+00 => 00",
+	    "subjectId" => 1,
+	    "qstParameters" =>  array(
+	        array("parameter" => "pm1", "parameterType" => "string" ),
+	        array("parameter" => "pm2", "parameterType" => "int" ),
+	        array("parameter" => "pm3", "parameterType" => "bool" )
 	                      ),
-	    'expectedOutput' => 'Here is the OUTPUT'
+	    "expectedOutput" => "Here is the OUTPUT"
   );
   */
   
@@ -44,8 +44,8 @@
   $res = mysql_query($sql) or die("Failed to save question in database " .mysql_error());
   
   //mysqli_insert_id returns The value of the AUTO_INCREMENT field that was updated by the previous query.
-  //$questionID = mysqli_insert_id($mysqli);
-  $questionID = mysql_insert_id();
+  $questionID = mysqli_insert_id($mysqli);
+  //$questionID = mysql_insert_id();
   
   //Check for returned results
   if($res){      
