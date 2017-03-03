@@ -21,7 +21,7 @@
   */
   
   
-  //JSON response
+  //JSON object
   $jQuest = json_decode(file_get_contents('php://input'), true);
   //$jQuest = json_decode($myObj, true);
   
@@ -64,16 +64,16 @@
       }
   
     //Return json with successful transaction
-    $response["TransCompleted"] = 1;
+    $jQuest["TransCompleted"] = 1;
     
     
-    //echo the JSON response
-    echo json_encode($response);
+    //echo the JSON object
+    echo json_encode($jQuest);
   }else{
     //Return json with successful transaction
-    $response["TransCompleted"] = 0;
+    $jQuest["TransCompleted"] = 0;
     
-    //echo the JSON response
-    echo json_encode($response);
+    //echo the JSON object
+    echo json_encode($jQuest);
   }
 ?>
