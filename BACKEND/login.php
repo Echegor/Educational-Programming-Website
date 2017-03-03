@@ -1,6 +1,7 @@
 <?php
   require_once "config.php";
   
+  
   //JSON response
   $response = json_decode(file_get_contents('php://input'), true);
   
@@ -13,13 +14,13 @@
     $sql = "SELECT * FROM TblUser WHERE username = '".$username."' AND password='".$password."'";
     
     //Get Result
-    $res = mysql_query($sql) or die("Failed to query database " .mysql_error());
+    $res = mysqli_query($connection, $sql) or die("Failed to query database " .mysql_error());
     
     //Check for returned results
-    if (mysql_num_rows($res) == 1){
+    if (mysqli_num_rows($res) == 1){
     
       //Get user row.
-      $userRow = mysql_fetch_assoc($res); 
+      $userRow = mysqli_fetch_assoc($res); 
       
       //successfully loged in.
       $response["userId"] = (int)$userRow["UserID"];
@@ -38,5 +39,8 @@
       echo json_encode($response);  
     }
   }
+  
+   //close the db connection
+  mysqli_close($connection);
 
 ?>
