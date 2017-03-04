@@ -10,6 +10,7 @@
 	}
 	function logToFileBackEnd($inText)
 	{
+		processLines();
 		$debug_export = var_export($inText, true);
 		$myfile = fopen("log.txt", "a+") or die("Unable to open file.");
 		//echo "BEGIN WRITE TO FILE: " . $myfile . "END WRITE TO FILE";
@@ -32,5 +33,23 @@
 			//echo "Luis has not gotten to this";
 			return $parsedInput;
 		}
+	}
+	function processLines(){
+		$lines = count(file("log.txt")) - 1;
+		if($lines>35){
+			unlink("log.txt");
+		}
+	}
+	function postHelper($data,$url){
+		$data = json_encode($data);
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POSTFIELDS,$data);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		$result = curl_exec($ch);
+		logToFileBackEnd($result);
+		//echo "<br>BEGIN BACKEND raw result:" . $result . "<br>";
+		curl_close($ch);	
+		return json_decode($result,true);
 	}
 ?>
