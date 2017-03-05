@@ -1,7 +1,13 @@
 <?php
+$testName = $_REQUEST["testName"];
+$testDescription = $_REQUEST["testDescription"];
+$creatorId = $_REQUEST["creatorId"];
 $questionList= $_REQUEST["questionList"];
 
-$postfieldsRaw = array("questionList" => $questionList);
+$postfieldsRaw = array("questionList" => $questionList,
+						"testName" => $testName,
+						"creatorId" => $creatorId,
+						"testDescription" => $testDescription);
                     
 $postfields = json_encode($postfieldsRaw);
 $curl = curl_init();

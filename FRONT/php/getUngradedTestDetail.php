@@ -1,14 +1,13 @@
 <?php
-$userId = $_REQUEST["userId"];
-$postfieldsRaw = array("userId" => $userId,
-						"userid" => $userId); // Having two different versions of this just in case
+$ungradedTestId = $_REQUEST["ungradedTestId"];
+$postfieldsRaw = array("ungradedTestId" => $ungradedTestId);
                     
 $postfields = json_encode($postfieldsRaw);
 $curl = curl_init();
 curl_setopt_array($curl, array(
     CURLOPT_RETURNTRANSFER => 1,
-    CURLOPT_URL => 'https://web.njit.edu/~lme4/pickTest.php',
-    CURLOPT_USERAGENT => 'Get Test List',
+    CURLOPT_URL => 'https://web.njit.edu/~lme4/getUngradedTestDetail.php',
+    CURLOPT_USERAGENT => 'Get Ungraded Test Detail',
     CURLOPT_POST => 1,
     CURLOPT_POSTFIELDS => $postfields,
 ));

@@ -20,11 +20,12 @@
 				<form id="question-form">
 					Title:<input type="text" name="nameField" /></br>
 					Weight:<input type="text" name="weight" /></br>
-					Category:<input type="text" name="category" /></br>
-					Prompt:<input type="text" name="prompt" /></br>
-					Test Input:<input type="text" name="input" /></br>
-					Test Output:<input type="text" name="output" /></br>
-					<button type="button" onclick="addQuestion(nameField.value, weight.value, category.value, prompt.value, input.value, output.value)">submit</button>
+					Subject ID:<input type="text" name="subjectId" /></br>
+					Prompt:<textarea type="text" name="prompt" ></textarea></br>
+					Function Header:<input type="text" name="functionHeader" /></br>
+					Test Input:<textarea type="text" name="input" ></textarea></br>
+					Test Output:<textarea type="text" name="output" ></textarea></br>
+					<button type="button" onclick="addQuestion(nameField.value, weight.value, subjectId.value, prompt.value, input.value, output.value, functionHeader.value, getCookie("userId"))">submit</button>
 				</form>
 			</div>
 		</div>

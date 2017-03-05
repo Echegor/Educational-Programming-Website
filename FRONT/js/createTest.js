@@ -3,6 +3,7 @@ function getQuestionList(userId) {
 	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			var rawResponse = this.responseText;
+			console.log("Response: " + rawResponse);
 			var response = JSON.parse(rawResponse);
 			
 			for (var i = 0; i < response.questions.length; i++) {
@@ -18,10 +19,11 @@ function getQuestionList(userId) {
 var questionsArray = [];
 
 function addQuestionToTest(questionId) {
+	console.log("Question ID Added: " + questionId);
 	questionsArray.push(questionId);
 }
 
-function addTest() {
+function addTest(testName, testDescription, creatorId) {
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
@@ -29,6 +31,7 @@ function addTest() {
 			var response = JSON.parse(rawResponse);
 		}
 	};
-	xmlhttp.open("POST", "php/addTest.php?questionList=" + JSON.parse(questionsArray), true);
+	console.log("Adding test with questions: " + JSON.stringify(questionsArray));
+	xmlhttp.open("POST", "php/addTest.php?questionList=" + JSON.stringify(questionsArray) + "&testName=" + testName + "&testDescription=" + testDescription + "&creatorId=" + creatorId, true);
 	xmlhttp.send();
 }

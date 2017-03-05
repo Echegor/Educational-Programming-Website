@@ -1,0 +1,25 @@
+sampleQuestions = '[{"name" : "Question 1", "id" : "20"},{"name" : "Question 2", "id" : "21"}]';
+/*sampleQuestions = {
+  "questions": [
+    {
+      "name": "Question 1",
+      "id": "500",
+      "category": "8"
+    },
+    {
+      "name": "Question 2",
+      "id": "501",
+      "category": "8"
+    },
+    {
+      "name": "Question 3",
+      "id": "502",
+      "category": "8"
+    },
+    {
+      "name": "Question 4",
+      "id": "503",
+      "category": "9"
+    }
+  ]
+}*/

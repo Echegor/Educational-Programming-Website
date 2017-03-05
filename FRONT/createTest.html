@@ -5,7 +5,13 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 	<script type="text/javascript" src="js/scripts.js"></script>
     <script type="text/javascript" src="js/createTest.js"></script>
+    
     <script type="text/javascript" src="js/templateEngine.js"></script>
+    <!--
+    <script type="text/javascript" src="js/dummy/createTestDummy.js"></script>
+    <script type="text/javascript" src="dummy/sampleQuestions.json"></script>
+    -->
+    
 </head>
 
 <body>
@@ -17,20 +23,23 @@
 			<div id="questionList" class="col-md-4">
 			</div>
 			<div id="sideBar" class="col-md-4">
+				
 			</div>
 			<div class = "col-md-4">
 				<form id="test-form">
-					<button type="button" onclick="addTest()">Add Test</button>
+					Test Name: <input type="text" name="testName"/> </br>
+					Test Description: <input type="text" name="testDescription"/> </br>
+					<button type="button" onclick="addTest(testName.value, testDescription.value, getCookie('userId'))">Add Test</button>
+					<!--<button type="button" onclick="addDummyTest(testName.value, testDescription.value, getCookie('userId'))">Add Test</button> -->
 				</form>
 			</div>
 		</div>
 		
 	</div>
-	
 	<script>
 		getQuestionList(getCookie("userId"));
+		//getDummyQuestionList(getCookie("userId"));
 	</script>
-	
 </body>
 
 </html>

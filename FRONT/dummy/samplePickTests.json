@@ -1,0 +1,7 @@
+/*{ [“testId” : int, “name” : string, “description” : string],
+	[“testId” : int, “name” : string, “description” : string],
+[“testId” : int, “name” : string], “description” : string }
+*/
+
+sampleTests = '[{"testId" : "1", "name" : "Test 1", "description" : "This is Test 1."}, 
+				{"testId" : "2", "name" : "Test 2", "description" : "This is Test 2."}]';

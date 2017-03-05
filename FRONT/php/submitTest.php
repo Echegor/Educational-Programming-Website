@@ -1,7 +1,10 @@
 <?php
+
 $testId = $_REQUEST["testId"];
+$userId = $_REQUEST["userId"];
 $answers = $_REQUEST["answers"];
 $postfieldsRaw = array("testId" => $testId,
+						"studentId" => $userId,
 						"answers" => $answers);
                     
 $postfields = json_encode($postfieldsRaw);

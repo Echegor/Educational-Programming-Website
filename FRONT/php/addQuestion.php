@@ -1,16 +1,20 @@
 <?php
 $name= $_REQUEST["name"];
 $weight = $_REQUEST["weight"];
-$category = $_REQUEST["category"];
+$subjectId = $_REQUEST["subjectId"];
 $prompt = $_REQUEST["prompt"];
 $input = $_REQUEST["input"];
 $output = $_REQUEST["output"];
+$functionHeader = $_REQUEST["functionHeader"];
+$createdBy = $_REQUEST["createdBy"];
 $postfieldsRaw = array("title" => $name,
                     "weight" => $weight,
-                    "category" => $category,
+                    "subjectId" => $category,
                     "prompt" => $prompt,
                     "input" => $input,
-                    "output" => $output);
+                    "output" => $output,
+                    "functionHeader" => $functionHeader,
+                    "createdBy" => $createdBy);
                     
 $postfields = json_encode($postfieldsRaw);
 $curl = curl_init();

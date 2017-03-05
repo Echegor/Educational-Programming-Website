@@ -1,0 +1,29 @@
+/*sampleTest = '{"testName" : "Test 1", "testDesc" : "This is Test 1.", "creatorId" : "991", "questionIds" : [
+	{"prompt" : "Here is the first prompt.", "questionId" : "1", "weight" : "10"},
+	{"prompt" : "Here is the second prompt.", "questionId" : "2", "weight" : "10"} ]}';*/
+	
+sampleTest = {
+	"testName": "Test 1",
+	"testDesc": "This is Test 1.",
+	"creatorId": "991",
+	"questionIds": [{
+		"prompt": "Here is the first prompt.",
+		"questionId": "1",
+		"weight": "10"
+	}, {
+		"prompt": "Here is the second prompt.",
+		"questionId": "2",
+		"weight": "10"
+	}]
+}
+
+/*
+	
+	“testName”:”String”,
+	“TestDesc” : “string”,
+	“creatorID”:NUM,
+	 questionIDs:{[
+[prompt questionID,weight],
+[prompt, questionID,weight],
+[prompt, questionID,weight],...]}
+	*/

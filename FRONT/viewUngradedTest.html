@@ -4,20 +4,23 @@
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 	<script type="text/javascript" src="js/scripts.js"></script>
-	<script type="text/javascript" src="js/takeTest.js"></script>
-	<script type="text/javascript" src="js/templateEngine.js"></script>
+    <script type="text/javascript" src="js/takeTest.js"></script>
+    <script type="text/javascript" src="js/templateEngine.js"></script>
 </head>
 
 <body>
 	<div class="container">
+                <div class="row">
+                       	<a href="studentLanding.html">Back To Landing Page</a>
+                </div>
 		<div class="row">
-			<a href="studentLanding.html">Back To Landing Page</a>
-		</div>
-		<div class="row">
-			<div id="testList" class="col-md-12">
-				
+			<div id="questionList" class="col-md-12">
+				<form id="testForm">
+						<button type="button" onclick="submitTest()">Submit Test</button>
+				</form>
 			</div>
 		</div>
+		
 	</div>
 	
 	<script>

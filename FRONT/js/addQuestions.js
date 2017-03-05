@@ -1,4 +1,4 @@
-function addQuestion(name, weight, category, prompt, input, output) {
+function addQuestion(name, weight, subjectId, prompt, input, output, functionHeader, createdBy) {
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
@@ -9,6 +9,6 @@ function addQuestion(name, weight, category, prompt, input, output) {
 	};
 	
 	xmlhttp.open("POST", "php/addQuestion.php?name=" + name + "&weight=" + weight +
-		"&category=" + category + "&prompt=" + prompt + "&input=" + input + "&output=" + output, true);
+		"&subjectId=" + subjectId + "&prompt=" + prompt + "&input=" + input + "&output=" + output + "&functionHeader=" + functionHeader + "&createdBy=" + createdBy, true);
 	xmlhttp.send();
 }

@@ -10,10 +10,7 @@
 <body>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-8"></div>
-			<div class="col-md-4">
-				<a href="register.html">Register</a>
-			</div>
+			<a href="index.html">Back To Login</a>
 		</div>
 		<div class="row">
 			<div id="sidebar" class="col-md-4">
@@ -22,7 +19,10 @@
 				<form id="form_login">
 					Username:<input type="text" name="username" /></br>
 					Password:<input type="text" name="password" /></br>
-					<button type="button" onclick="login(username.value, password.value)">Login</button>
+					First Name:<input type="text" name="firstName" /></br>
+                    Last Name:<input type="text" name="lastName" /></br>
+					<button type="button" onclick="register(username.value, password.value, 1, firstName.value, lastName.value)">Register Student</button>
+					<button type="button" onclick="register(username.value, password.value, 2, firstName.value, lastName.value)">Register Instructor</button>
 				</form>
 				</br>
 				<p><span id="errors"></span></p>
