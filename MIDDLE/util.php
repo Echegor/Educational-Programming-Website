@@ -17,6 +17,15 @@
 		fwrite($myfile,date("Y-m-d H:i:s") . " Received from back end:" . $inText . "\n");
 		fclose($myfile);
 	}
+	function logToFileSendingToBackend($inText)
+	{
+		processLines();
+		$debug_export = var_export($inText, true);
+		$myfile = fopen("log.txt", "a+") or die("Unable to open file.");
+		//echo "BEGIN WRITE TO FILE: " . $myfile . "END WRITE TO FILE";
+		fwrite($myfile,date("Y-m-d H:i:s") . "Middle Sending to backend:" . $inText . "\n");
+		fclose($myfile);
+	}
 	function processInput($input,$file)
 	{
 		//here I check if I got a POST command
@@ -49,7 +58,28 @@
 		$result = curl_exec($ch);
 		logToFileBackEnd($result);
 		//echo "<br>BEGIN BACKEND raw result:" . $result . "<br>";
-		curl_close($ch);	
-		return json_decode($result,true);
+		curl_close($ch);
+		$assocArray = json_decode($result,true);
+		if(empty($assocArray)){
+			return 0;
+		}	
+		return $assocArray;
+	}
+	function postFromMiddle($data,$url){
+		logToFileSendingToBackend($data)
+		$data = json_encode($data);
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_POSTFIELDS,$data);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		$result = curl_exec($ch);
+		logToFileBackEnd($result);
+		//echo "<br>BEGIN BACKEND raw result:" . $result . "<br>";
+		curl_close($ch);
+		$assocArray = json_decode($result,true);
+		if(empty($assocArray)){
+			return 0;
+		}	
+		return $assocArray;
 	}
 ?>

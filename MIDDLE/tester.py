@@ -1,8 +1,8 @@
 import requests
 import json
 
-myWeb = r'https://web.njit.edu/~lme4/submitTest.php'
-code = r''
+myWeb = r'https://web.njit.edu/~lme4/getQuestionList.php'
+jamesWeb = r'https://web.njit.edu/~jjr27/getQuestionList.php'
 
 s = requests.Session()
 
@@ -14,7 +14,7 @@ s = requests.Session()
 
 # #POST request
 payload = {
-	'prompt':r'int x,y,z; x=5; y=10; z=x+y;System.out.println("Z is:"+z);'
+	"userid":"13"
 }
 #headers = {'content-type': 'application/json'}
 
