@@ -21,6 +21,9 @@ var questionsArray = [];
 function addQuestionToTest(questionId) {
 	console.log("Question ID Added: " + questionId);
 	questionsArray.push(questionId);
+	var response = {};
+	response.title = "Question " + questionId;
+	addQuestionCell(response);
 }
 
 function addTest(testName, testDescription, creatorId) {

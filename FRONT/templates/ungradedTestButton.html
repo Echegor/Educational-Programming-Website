@@ -1,5 +1,7 @@
 <div class="test-cell">
-	<div class="title">Debug Test Title</div>
-	<div class="id" name="id">Debug Test Id</div>
-	<button type="button" onclick="proceedToUngradedTest(id.value)">View Ungraded Test</button>
+	<form>
+		<div class="testName">Debug Test Title</div>
+		<input class="ungradedTestId" name="ungradedTestId" readonly />
+		<button type="button" onclick="proceedToDummyUngradedTest(ungradedTestId.value)">View Ungraded Test</button>
+	</form>
 </div>

@@ -1,0 +1,15 @@
+/*“students” : {
+	[studentId, studentName],
+[studentId, studentName], 
+[studentId, studentName], 
+}*/
+
+studentsList = {
+	"students": [{
+		"studentName": "Student Name 1",
+		"studentId": "1",
+	}, {
+		"studentName": "Student Name 1",
+		"studentId": "2",
+	}]
+}

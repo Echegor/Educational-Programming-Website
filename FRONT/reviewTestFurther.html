@@ -7,15 +7,15 @@
     <script type="text/javascript" src="js/assessTest.js"></script>
     <script type="text/javascript" src="js/templateEngine.js"></script>
     
-    <!-- <script type="text/javascript" src="js/dummy/assessTestDummy.js"></script>
-    <script type="text/javascript" src="dummy/dummyUngradedTestsList.json"></script> -->
+    <!--<script type="text/javascript" src="js/dummy/assessTestDummy.js"></script>
+    <script type="text/javascript" src="dummy/dummyUngradedTestDetail.json"></script>-->
     
 </head>
 
 <body>
 	<div class="container">
                 <div class="row">
-                       	<a href="instructorLanding.html">Back To Landing Page</a>
+                       	<a href="reviewTest.html">Back To Review Test</a>
                 </div>
 		<div class="row">
 			<div id="ungradedTestList" class="col-md-12">
@@ -26,8 +26,8 @@
 	</div>
 	
 	<script>
-		getUngradedTestList(getCookie("userId"));
-		//getDummyUngradedTestList(getCookie("userId"));
+		getUngradedTestDetail(getCookie("ungradedTestId"));
+		//getDummyUngradedTestDetail(getCookie("ungradedTestId"));
 	</script>
 	
 </body>

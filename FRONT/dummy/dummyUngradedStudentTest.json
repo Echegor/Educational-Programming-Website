@@ -1,0 +1,15 @@
+/*“ungradedTests” : {
+	[ “ungradedTestName” : string, “ungradedTestId” : int ],
+	[ “ungradedTestName” : string, “ungradedTestId” : int ],
+	[ “ungradedTestName” : string, “ungradedTestId” : int ]
+}*/
+
+ungradedTests = {
+	"ungradedTests": [{
+		"ungradedTestName": "Sample Test 1",
+		"ungradedTestId": "1",
+	}, {
+		"ungradedTestName": "Sample Test 2",
+		"ungradedTestId": "2",
+	}]
+}

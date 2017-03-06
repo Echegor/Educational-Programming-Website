@@ -1,0 +1,31 @@
+/*[“prompt” : string, “questionId” : int, “questionWeight” : int, “questionGrade” : int, 
+“studentAnswer” : string, “remarks” : string], 
+[“prompt” : string, “questionId” : int, “questionWeight” : int, “questionGrade” : int, 
+“studentAnswer” : string, “remarks” : string], 
+[“prompt” : string, “questionId” : int, “questionWeight” : int, “questionGrade” : int, 
+“studentAnswer” : string, “remarks” : string]*/
+
+gradedTest = {
+	"questions": [{
+		"questionId": "1",
+		"prompt": "Write  function called 'helloWorld' that takes no parameters and prints 'hello world' to the screen.",
+		"questionWeight" : "10",
+		"studentAnswer" : "public void helloWorld() { System.out.println(\"hello world\"}",
+		"studentGrade" : "10",
+		"remarks" : "None"
+	}, {
+		"questionId": "2",
+		"questionPrompt": "Write  function called 'sum' that takes two integers of names x and y and returns their sum as an integer.",
+		"questionWeight" : "15",
+		"studentAnswer" : "public int sum(int x, int y) { return x + y; }",
+		"studentGrade" : "15",
+		"remarks" : "None"
+	}, {
+		"questionId": "3",
+		"questionPrompt": "Write  function called 'product' that takes two floats of names x and y and returns their product as a float.",
+		"questionWeight" : "15",
+		"studentAnswer" : "public int sum(int x, int y) { return x + y; }",
+		"studentGrade" : "0",
+		"remarks" : "You seem to have copy pasted your answer from question 2."
+	}]
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<script type="text/javascript" src="js/scripts.js"></script>
+    <script type="text/javascript" src="js/assessTest.js"></script>
+    <script type="text/javascript" src="js/templateEngine.js"></script>
+    
+    <!--<script type="text/javascript" src="js/dummy/assessTestDummy.js"></script>
+    <script type="text/javascript" src="dummy/dummyUngradedStudentTestFull.json"></script>-->
+    
+</head>
+
+<body>
+	<div class="container">
+        <div class="row">
+	        <a href="reviewTestFurther.html">Back To Student List</a>
+        </div>
+		<div class="row">
+			<div class="ungradedTestForm" id="ungradedTestForm">
+				<form id="testForm" class="col-md-12">
+					<!--<button type="button" onclick="correctDummyStudentTest()">Submit Changes</button>-->
+					<button type="button" onclick="correctStudentTest()">Submit Changes</button>
+				</form>
+			</div>
+		</div>
+		
+	</div>
+	
+	<script>
+		getUngradedTestForStudent(getCookie("ungradedStudentId"), getCookie("ungradedTestId"));
+		//getDummyUngradedTestForStudent(getCookie("ungradedStudentId"), getCookie("ungradedTestId"));
+	</script>
+	
+</body>
+
+</html>

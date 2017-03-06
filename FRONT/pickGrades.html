@@ -4,8 +4,12 @@
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 	<script type="text/javascript" src="js/scripts.js"></script>
-	<script type="text/javascript" src="js/takeTest.js"></script>
+	<script type="text/javascript" src="js/pickGrades.js"></script>
 	<script type="text/javascript" src="js/templateEngine.js"></script>
+	
+	<!--<script type="text/javascript" src="js/dummy/pickGradesDummy.js"></script>
+	<script type="text/javascript" src="dummy/dummyPickTestGraded.json"></script>-->
+	
 </head>
 
 <body>
@@ -21,7 +25,8 @@
 	</div>
 	
 	<script>
-		getTestDetail(getCookie("testId"));
+		getGradedTestList(getCookie("userId"));
+		//getDummyGradedTestList(getCookie("userId"));
 	</script>
 </body>
 

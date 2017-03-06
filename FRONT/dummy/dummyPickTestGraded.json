@@ -1,0 +1,9 @@
+gradedTest = {
+	"gradedTests": [{
+		"gradedTestId": "1",
+		"testName": "Test 1"
+	}, {
+		"gradedTestId": "2",
+		"testName": "Test 2"
+	}]
+}
