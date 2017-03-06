@@ -69,4 +69,6 @@
     echo json_encode($jQbyT);
   }
     
+  //close the db connection
+  mysqli_close($connection);
 ?>

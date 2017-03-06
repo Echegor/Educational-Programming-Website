@@ -44,7 +44,7 @@
         VALUES('".$testID."','".$userID."','".$questionID."','".$studentAns."','".$grade."','".$dateTaken."')";
   
   //Get Result
-  $res = mysql_query($sql) or die("Failed to save test gradings in database " .mysql_error());
+  $res = mysqli_query($connection, $sql) or die("Failed to save test gradings in database " .mysql_error($connection));
   
   //Check for returned results
   if($res){      
@@ -61,4 +61,7 @@
     //echo the JSON object
     echo json_encode($jTestG);
   }
+  
+    //close the db connection
+  mysqli_close($connection);
 ?>
