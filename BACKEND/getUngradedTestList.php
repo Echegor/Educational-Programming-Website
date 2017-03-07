@@ -6,11 +6,11 @@
   $jQuest = json_decode(file_get_contents('php://input'), true);
   
   //Values passed.
-  $userID = $jquest['userid'];
+  $userID = $jQuest['instructorId'];
   
   //fetch table rows from mysql db
   $sql = "SELECT TestID AS UngradedTestID, TestName as UngradedTestName FROM TblTest WHERE CreatedBy = " . $userID;
-            
+  
   $result = mysqli_query($connection, $sql) or die("Error in Selecting Tests " . mysqli_error($connection));
     
   // Convert MySQL Result Set to PHP Array  

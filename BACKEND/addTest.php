@@ -1,36 +1,26 @@
 <?php
 
   require_once "config.php";
-  /*
-  $myObj = array(
-		  "TestDescription"  => "Test1",
-		  "CreatedBy"     => 1,
-	    "DateCreated"  => "@{currentdate}",
-  );
-  */
-  
-  
   //JSON object
   $jTest = json_decode(file_get_contents('php://input'), true);
-  //$jQuest = json_decode($myObj, true);
   
   //Values passed.
-  $testName = $jTest['dateAdded'];
-  $testDesc = $jTest['TestDesc'];
-  $createdBy = (int)$jTest['creatorID'];
+  $testName = $jTest['testName'];
+  $testDesc = $jTest['testDesc'];
+  $createdBy = (int)$jTest['creatorId'];
 
   //SQL query tu run against the DB for INSERT.
   $sql = "INSERT INTO TblTest (TestName, TestDesc, CreatedBy) 
-  VALUES('".$testName."','".$testDesc."','".$addedBy."')";
+  VALUES('".$testName."','".$testDesc."','".$createdBy."')";
   
   //Get Result
-  $res = mysqli_query($connection, $sql) or die("Failed to save test in database " .mysql_error());
+  $res = mysqli_query($connection, $sql) or die("Failed to save test in database " . mysqli_error($connection));
   
   //mysqli_insert_id returns The value of the AUTO_INCREMENT field that was updated by the previous query.
-  $testID = mysqli_insert_id($mysqli);
+  $testID = mysqli_insert_id($connection);
 
   //Reply JSON 
-  $jReply["testName"] = $title;
+  $jReply["testName"] = $testName;
   $jReply["testid"] = $testID;
   
   //Check for returned results
@@ -47,8 +37,7 @@
               VALUES('".$questionID."', '".$testID."','".$createdBy."','".$weight."')";
       
       //Get Result
-      $res = mysql_query($sql) or die("Failed to assign questions to test in database " .mysql_error());
-      
+      $res = mysqli_query($connection, $sql) or die("Failed to assign questions to test in database " .mysql_error($connection));
     }
     
     //echo the JSON object
@@ -60,10 +49,10 @@
     
     //echo the JSON object
     echo json_encode($jTest);
-    /*
+    */
   }
   
   //close the db connection
   mysqli_close($connection);
-  v
+  
 ?>

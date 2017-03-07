@@ -36,7 +36,7 @@
   
   //SQL query tu run against the DB for INSERT.
   $sql = "INSERT INTO TblQuestion (Question, QstTitle, QstWeight, QstCreatedBy, QstSubjectID, QstFunctionHeader, QstInput, QstOutput) 
-  VALUES('".$prompt."','".$title."','".$weight."','".$createdBy."','".$subjectId."', '".$functionHeader."', '".$qstInput."', '".$qstOutput."')";
+  VALUES('".$question."','".$title."','".$weight."','".$createdBy."','".$subjectId."', '".$functionHeader."', '".$qstInput."', '".$qstOutput."')";
   
   //Get Result
   $res = mysqli_query($connection, $sql) or die("Failed to save question in database " .mysql_error($connection));

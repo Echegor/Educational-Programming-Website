@@ -6,8 +6,8 @@
   $jParam = json_decode(file_get_contents('php://input'), true);
   
   //Values passed.
-  $studentId = $jParam['studentId'];
-  $testID = $jParam['ungradedTestId'];
+  //$studentId = $jParam['studentId'];
+  $testID = (int)$jParam['testId'];
   
   //fetch table rows from mysql db     questionId, questionPrompt, questionWeight, studentAnswer, studentGrade
   $sql = "SELECT TestName AS testName, TestDesc, CreatedBy AS creatorID FROM TblTest WHERE TestID = " . $testID;
@@ -26,7 +26,7 @@
 
       
   //fetch table rows from mysql db     questionId, questionPrompt, questionWeight, studentAnswer, studentGrade
-  $sqlQts = "SELECT Question AS prompt, TblQuestionByTest.QuestionID AS questionID, tWeight AS weight FROM TblQuestionByTest Inner Join TblQuestion ON TblQuestionByTest  .QuestionID = TblQuestion.QuestionID WHERE TestID = " . $testID;
+  $sqlQts = "SELECT Question AS prompt, TblQuestionByTest.QuestionID AS questionID, tWeight AS weight FROM TblQuestionByTest Inner Join TblQuestion ON TblQuestionByTest.QuestionID = TblQuestion.QuestionID WHERE TestID = " . $testID;
                   
   $qsts = mysqli_query($connection, $sqlQts) or die("Error in Selecting Students " . mysqli_error($connection));  
   
