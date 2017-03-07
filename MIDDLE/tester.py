@@ -4,6 +4,7 @@ import json
 myWeb = r'https://web.njit.edu/~lme4/getQuestionList.php'
 jamesWeb = r'https://web.njit.edu/~jjr27/getQuestionList.php'
 testWeb = r'https://web.njit.edu/~lme4/submitTest.php'
+vpnWeb = r'http://afsaccess2.njit.edu/~lme4/submitTest.php'
 
 s = requests.Session()
 
@@ -67,6 +68,6 @@ payload = {
 #headers = {'content-type': 'application/json'}
 
 
-post = s.post(testWeb, data=json.dumps(payload))
+post = s.post(vpnWeb, data=json.dumps(payload))
 
 print (post.text)
