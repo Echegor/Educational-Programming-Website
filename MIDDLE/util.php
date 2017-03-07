@@ -66,7 +66,7 @@
 		return $assocArray;
 	}
 	function postFromMiddle($data,$url){
-		logToFileSendingToBackend($data)
+		logToFileSendingToBackend($data);
 		$data = json_encode($data);
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
