@@ -5,6 +5,7 @@ myWeb = r'https://web.njit.edu/~lme4/getQuestionList.php'
 jamesWeb = r'https://web.njit.edu/~jjr27/getQuestionList.php'
 testWeb = r'https://web.njit.edu/~lme4/submitTest.php'
 vpnWeb = r'http://afsaccess2.njit.edu/~lme4/submitTest.php'
+getQuestionDetail = r'https://web.njit.edu/~jjr27/getQuestionDetail.php'
 
 s = requests.Session()
 
@@ -56,15 +57,7 @@ answer3="""String notString(String str) {
   return "not " + str;
 }"""
 
-payload = {
-	"testID":55,
-	"studentId" : 13,
-	"answers" : [
-			{"questionID" : 22, "answer" : answer1} ,
-			{"questionID" : 23, "answer" : answer2} ,
-			{"questionID" : 24, "answer" : answer3} 
-			], 
-}
+payload = {"testId":"15","studentId":"12","answers":[{"questionId":"29","answer":"int x(int i){\nreturn 1;\n}"}]}
 #headers = {'content-type': 'application/json'}
 
 

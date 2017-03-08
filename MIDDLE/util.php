@@ -5,7 +5,7 @@
 		$debug_export = var_export($inText, true);
 		$myfile = fopen("log.txt", "a+") or die("Unable to open file.");
 		//echo "BEGIN WRITE TO FILE: " . $myfile . "END WRITE TO FILE";
-		fwrite($myfile, date("Y-m-d H:i:s") . " Received from front end to file " . $file . ":" . $inText . "\n");
+		fwrite($myfile, date("Y-m-d H:i:s") . " Received from front end to file " . $file . ":" . $debug_export . "\n");
 		fclose($myfile);
 	}
 	function logToFileBackEnd($inText)
@@ -14,16 +14,16 @@
 		$debug_export = var_export($inText, true);
 		$myfile = fopen("log.txt", "a+") or die("Unable to open file.");
 		//echo "BEGIN WRITE TO FILE: " . $myfile . "END WRITE TO FILE";
-		fwrite($myfile,date("Y-m-d H:i:s") . " Received from back end:" . $inText . "\n");
+		fwrite($myfile,date("Y-m-d H:i:s") . " Received from back end:" . $debug_export . "\n");
 		fclose($myfile);
 	}
-	function logToFileSendingToBackend($inText)
+	function logToFileSendingToBackend($inText,$url)
 	{
 		processLines();
 		$debug_export = var_export($inText, true);
 		$myfile = fopen("log.txt", "a+") or die("Unable to open file.");
 		//echo "BEGIN WRITE TO FILE: " . $myfile . "END WRITE TO FILE";
-		fwrite($myfile,date("Y-m-d H:i:s") . "Middle Sending to backend:" . $inText . "\n");
+		fwrite($myfile,date("Y-m-d H:i:s") . " Middle Sending to backend:" . $url . ":" . $debug_export . "\n");
 		fclose($myfile);
 	}
 	function processInput($input,$file)
@@ -50,14 +50,14 @@
 		}
 	}
 	function postHelper($data,$url){
-		$data = json_encode($data);
+		$postData = json_encode($data);
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_POSTFIELDS,$data);
+		curl_setopt($ch, CURLOPT_POSTFIELDS,$postData);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		$result = curl_exec($ch);
 		logToFileBackEnd($result);
-		//echo "<br>BEGIN BACKEND raw result:" . $result . "<br>";
+		// echo "<br>BEGIN BACKEND raw result:" . $result . "<br>";
 		curl_close($ch);
 		$assocArray = json_decode($result,true);
 		if(empty($assocArray)){
@@ -66,20 +66,16 @@
 		return $assocArray;
 	}
 	function postFromMiddle($data,$url){
-		logToFileSendingToBackend($data);
-		$data = json_encode($data);
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_POSTFIELDS,$data);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		$result = curl_exec($ch);
-		logToFileBackEnd($result);
-		//echo "<br>BEGIN BACKEND raw result:" . $result . "<br>";
-		curl_close($ch);
-		$assocArray = json_decode($result,true);
-		if(empty($assocArray)){
-			return 0;
-		}	
-		return $assocArray;
+		logToFileSendingToBackend(json_encode($data),$url);
+		return postHelper($data,$url);
+	}
+	function debugLog($inText)
+	{
+		processLines();
+		$debug_export = var_export($inText, true);
+		$myfile = fopen("debugLog.txt", "a+") or die("Unable to open file.");
+		//echo "BEGIN WRITE TO FILE: " . $myfile . "END WRITE TO FILE";
+		fwrite($myfile,date("Y-m-d H:i:s") . ":" . $debug_export . "\n");
+		fclose($myfile);
 	}
 ?>

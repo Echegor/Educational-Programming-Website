@@ -59,33 +59,28 @@
 	
 	$parsedInput = processInput(file_get_contents('php://input'),__FILE__);
 
-	// foreach ($parsedInput['answers'] as $question){
-	// 	$postfields = json_encode(array("questionID" => $question['questionID']));
-	// 	$questionDetail = postFromMiddle($postfields,$questionUrl);
-	// 	gradeQuestion($questionDetail,$question);
-	// 	//TODO merge the two arrays
-	// }
+
 	for($j=0 ,$size = count($parsedInput['answers']); $j < $size ; ++$j){
-		$postfields = json_encode(array("questionID" => $question['questionID']));
+		$postfields = array(
+						"questionID" => $parsedInput['answers'][$j]['questionId'],
+						);
 		$questionDetail = postFromMiddle($postfields,$questionUrl);
-		//echo "size:$size, j:$j\n";
+
 		$parsedInput['answers'][$j] = gradeQuestion($questionDetail,$parsedInput['answers'][$j]);
 		//var_dump($parsedInput['answers'][$j]);
 	}
-	// for($j=0 ,$size = count($parsedInput['answers']); $j < $size ; ++$j){
-	// 	//echo "size:$size, j:$j\n";
-	// 	$parsedInput['answers'][$j] = gradeQuestion($inputQuestions[$j],$parsedInput['answers'][$j]);
-	// 	var_dump($parsedInput['answers'][$j]);
-	// }
-	echo json_encode($parsedInput);
+
+	$backend = postFromMiddle($parsedInput,$url);
+	debugLog($backend);
+	echo json_encode($backend);
 
 	function gradeQuestion($questionDetail,$question){
 		//QuestionDetail holds [“name” : string, “weight” : string,“subjectId” : int,“prompt” : string,“Input” : string,“output” : string,“functionHeader” : string,“createdBy” : int]
 		//Question holds [ “questionID” : int, “answer” : “string” ]
 		//NEED TO ADD ”grade”:int,”gradeExplanation”:”string” ] 
 
-		$testCases = explode(";", $questionDetail['input']);
-		$outputCases = explode(";", $questionDetail['output']);
+		$testCases = explode("|", $questionDetail['input']);
+		$outputCases = explode("|", $questionDetail['output']);
 
 		//TODO parse and compare headers
 		// echo "Dumping questionDetail";
@@ -107,19 +102,19 @@
 		for($i=0;$i<$testCaseNumber;$i++){
 			$code = injectCode($question['answer'],$testCases[$i]);
 			//echo "Code is \n$code\n";
-			echo "Working on $testCases[$i]\n";
+			//echo "Working on $testCases[$i]\n";
 			unlink("CodeGrader.java");
 			writeToFile($code);
 			$compileResult = shell_exec("javac CodeGrader.java 2>&1");
 			if(empty($compileResult)){
-				$runResult = parseRunResult($questionDetail['functionHeader'],$outputCases[$i],$testCases[$i]);
-				echo "Run result\n";
-				var_dump($runResult);
-				echo "done\n";
+				$runResult = parseRunResult($questionDetail['QstFunctionHeader'],$outputCases[$i],$testCases[$i]);
+				//echo "Run result\n";
+				//var_dump($runResult);
+				//echo "done\n";
 				$question['gradeExplanation'] .= $runResult[0];
-				echo "New explanation " .  $question['gradeExplanation'] . "\nDONE\n";
+				//echo "New explanation " .  $question['gradeExplanation'] . "\nDONE\n";
 				if($runResult[1]===1){
-					echo "increasing number right";
+					//echo "increasing number right";
 					$numberRight++;
 				}
 			}
@@ -156,9 +151,9 @@
 	}
 
 	function parseRunResult($header,$output,$input){
-		echo "Executing\n";
+		//echo "Executing\n";
 		$runResult =  shell_exec("java CodeGrader");
-		echo "Run result is:\n$runResult\n";
+		//echo "Run result is:\n$runResult\n";
 		if (preg_match('#^String#', $header) === 1) {
 			if($runResult===$output||"\"$runResult\""===$output){
 				return array("Good job, for your input $input, you got \"$runResult\". The correct answer was $output \n",1);
