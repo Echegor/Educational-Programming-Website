@@ -77,35 +77,29 @@
 		$studentFunctionName = $studentArray["functionName"];
 		$studentRawCode = getStudentCode($studentCode);
 		$fixedFunctionArguments = fixArgumentTypes($instructorArray['argumentsArray'],$studentArray['argumentsArray']);
-		
+		$goodHeader = generateGoodHeader($instructorArray['returnType'],$studentFunctionName,$fixedFunctionArguments);
+		$mergedTestCases = mergeTestCases($testCases,$studentFunctionName);
+		$code = injectCode($goodHeader,$studentRawCode,$mergedTestCases);
+		unlink("CodeGrader.java");
+		unlink("CodeGrader.class");
+		writeToFile($code);
+		$compileResult = shell_exec("javac CodeGrader.java 2>&1");
 
-		for($i=0;$i<$testCaseNumber;$i++){
-			$goodTestCaseName = replaceFunctionName($studentFunctionName,$testCases[$i]);
-			$goodHeader = generateGoodHeader($studentArray['returnType'],$studentFunctionName,$fixedFunctionArguments);
-			$code = injectCode($goodHeader,$studentRawCode,$goodTestCaseName);
-			//echo "Code is \n$code\n";
-			//echo "Working on $testCases[$i]\n";
-			unlink("CodeGrader.java");
-			writeToFile($code);
-			$compileResult = shell_exec("javac CodeGrader.java 2>&1");
-			if(empty($compileResult)){
-				$runResult = parseRunResult($header,$outputCases[$i],$testCases[$i]);
+		if(empty($compileResult)){
+				$runResult = parseRunResult($header,$outputCases,$testCases);
 				//echo "Run result\n";
 				//var_dump($runResult);
 				//echo "done\n";
 				$question['gradeExplanation'] .= $runResult[0];
-				//echo "New explanation " .  $question['gradeExplanation'] . "\nDONE\n";
-				if($runResult[1]===1){
-					//echo "increasing number right";
-					$numberRight++;
-				}
+				$numberRight = $runResult[1];
+
 			}
-			else{
-				$question['grade'] = 0;
-				$question['gradeExplanation'] .= $compileResult;
-				return $question;
-			}
+		else{
+			$question['grade'] = 0;
+			$question['gradeExplanation'] .= $compileResult;
+			return $question;
 		}
+
 		$deductedPoints = compareHeaderArrays($instructorArray,$studentArray);
 		//debugLog($deductedPoints);
 
@@ -118,9 +112,9 @@
 	function injectCode($functionHeader,$studentCode,$testCase){
 		$code = "public class CodeGrader{\n\t" 								. 
 					"public static void main(String [] args)\n\t{"			. 
-						"\n\t\t//INJECTED TEST CODE START\n"						. 
-						"\t\tSystem.out.print($testCase);"	  			.
-						"\n\t\t//INJECTED TEST CODE END\n\t"						. 
+						"\n\t\t//INJECTED TEST CODE START\n"				. 
+						"\t\tSystem.out.print($testCase);"	  				.
+						"\n\t\t//INJECTED TEST CODE END\n\t"				. 
 					"}\n"													.
 					"public static " . $functionHeader . " $studentCode\n"	. 
 				"}\n";
@@ -138,24 +132,39 @@
 	function parseRunResult($header,$output,$input){
 		//echo "Executing\n";
 		$runResult =  shell_exec("java CodeGrader");
-		//echo "Run result is:\n$runResult\n";
-		if (preg_match('#^String#', $header) === 1) {
-			if($runResult===$output||"\"$runResult\""===$output){
-				return array("Good job, for your input $input, you got \"$runResult\". The correct answer was $output \n",1);
+		$runOutput = explode("%delim%", $runResult);
+		//debugLog($output,"Run output split is");
+
+		$numberRight =0;
+		$gradeExplanation = "";
+
+
+		//TODO WHY ARE YOU CHECKING THE HEADER EVERY ITERATTON
+		for($i = 0, $size = count($output);$i<$size;$i++){
+			if (preg_match('#^String#', $header) === 1) {
+				if($runOutput[$i]===$output||"\"$runOutput[$i]\""===$output[$i]){
+					$numberRight++;
+					$gradeExplanation.="Good job, for your input $input[$i], you got \"$runOutput[$i]\". The correct answer was $output[$i] \n";
+				}
+				else{
+					$gradeExplanation.="You got a bad String $runOutput[$i], the correct answer was $output[$i]\n";		
+				}
 			}
-			else{
-				return array("You got a bad String $runResult, the correct answer was $output\n",0);		
+			else if (preg_match('#^int#', $header) === 1) {
+				if($runOutput[$i]===$output[$i]){
+					$numberRight++;
+					$gradeExplanation.="Good job, for your input $input[$i], you got $runOutput[$i]. The correct answer was $output[$i] \n";
+				}
+				else{
+					$gradeExplanation.="You got $runOutput[$i], the correct answer was $output[$i]\n";	
+				}		
+			}
+			else {
+				debugLog($runOutput[$i],"Bad parse in parseRunResult");
 			}
 		}
-		if (preg_match('#^int#', $header) === 1) {
-			if($runResult===$output){
-				return array("Good job, for your input $input, you got $runResult. The correct answer was $output \n",1);
-			}
-			else{
-				return array("You got $runResult, the correct answer was $output\n",0);		
-			}		
-		}
-		echo "Bad Parse\n";
+
+		return array($gradeExplanation,$numberRight);
 
 	}
 	function getStudentHeader($studentCode){
@@ -212,12 +221,12 @@
 		$explanation = "";
 		if($student['returnType']!==$instructor['returnType']){
 			$points +=5;
-			$explanation .="-5 Wrong return type: ". $student['returnType'];
+			$explanation .="-5 Wrong return type: ". $student['returnType'] ."\n";
 		}
 
 		if($student['functionName']!==$instructor['functionName']){
 			$points +=5;
-			$explanation .="-5Wrong function name: " . $student['functionName'];
+			$explanation .="-5Wrong function name: " . $student['functionName'] . "\n";
 		}
 		for($i=0,$size = count($instructor['argumentsArray']) ; $i<$size ; $i++){
 			$iSplit = explode(" ", $instructor['argumentsArray'][$i]);
@@ -226,7 +235,7 @@
 		//	debugLog($sSplit,"sSplit");
 			if($iSplit[0]!==$sSplit[0]){
 				$points +=5;
-				$explanation .="-5 Wrong function argument type: " . $sSplit[0];
+				$explanation .="-5 Wrong function argument type: " . $sSplit[0] . "\n";
 			}
 		}
 		return array($points,$explanation);
@@ -253,5 +262,18 @@
 	}
 	function generateGoodHeader($returnType,$studentFunctionName,$fixedFunctionArguments){
 		return $returnType . " " . $studentFunctionName . "(" . $fixedFunctionArguments . ")";
+	}
+	function mergeTestCases($input,$studentFunctionName){
+		$testCaseString = "";
+		for($i=0,$size=count($input);$i<$size;$i++){
+			if($i!=$size-1){
+				$testCaseString.=replaceFunctionName($studentFunctionName,$input[$i]) . "+\"%delim%\"+";
+			}
+			else{
+				$testCaseString.=replaceFunctionName($studentFunctionName,$input[$i]);
+			}
+		}
+		//debugLog($testCaseString,"Test Case String:");
+		return $testCaseString;
 	}
 ?>
