@@ -3,7 +3,7 @@
 
 	$parsedInput = processInput(file_get_contents('php://input'),__FILE__);
 
-	$url = "https://web.njit.edu/~jjr27/getQuestionList.php";
+	$url = "https://web.njit.edu/~jjr27/pickTest.php";
 	$backend = postHelper($parsedInput,$url);
 	//here is how I reply
 	echo json_encode($backend);

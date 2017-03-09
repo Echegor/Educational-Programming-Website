@@ -1,8 +1,7 @@
 <?php
 	require_once "util.php";
-	require_once "postHelper.php";
 
-	$parsedInput = processInput(file_get_contents('php://input'));
+	$parsedInput = processInput(file_get_contents('php://input'),__FILE__);
 
 	//var_dump($parsedInput);
 	//here I add stuff to the associate array I got
