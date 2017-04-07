@@ -6,10 +6,10 @@
   $jParam = json_decode(file_get_contents('php://input'), true);
   
   //Values passed.
-  $testID = $jParam['ungradedTestId'];
+  $testID = (int)$jParam['ungradedTestId'];
   
   //fetch table rows from mysql db
-  $sql = "SELECT DISTINCT USR.UserID as studentId, CONCAT(FirstName, " ", LastName) AS studentName FROM TblTestGrading TTG Inner Join TblUser USR ON TTG.UserID = USR.UserID WHERE TTG.TestID = " . $testID;
+  $sql = "SELECT DISTINCT USR.UserID as studentId, CONCAT(FirstName, ' ', LastName) AS studentName FROM TblTestGrading TTG Inner Join TblUser USR ON TTG.UserID = USR.UserID WHERE TTG.TestID = " . $testID;
             
   $result = mysqli_query($connection, $sql) or die("Error in Selecting Students " . mysqli_error($connection));
     

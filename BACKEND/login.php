@@ -11,7 +11,7 @@
   
   if (isset($username)){
     //SQL query tu run against the DB.
-    $sql = "SELECT * FROM TblUser WHERE username = '".$username."' AND password='".$password."'";
+    $sql = "SELECT * FROM TblUser WHERE username = '".$username."'";
     
     //Get Result
     $res = mysqli_query($connection, $sql) or die("Failed to query database " .mysql_error());
@@ -22,11 +22,20 @@
       //Get user row.
       $userRow = mysqli_fetch_assoc($res); 
       
-      //successfully loged in.
-      $response["userId"] = (int)$userRow["UserID"];
-      $response["firstName"] = $userRow["FirstName"];
-      $response["lastName"] = $userRow["LastName"];
-      $response["roleId"] = (int)$userRow["RoleID"];
+      // Get the password from the database and compare it to a variable (for example post)
+      $hashedPasswordFromDB = trim($userRow["Password"]);
+      
+      if (password_verify($password, $hashedPasswordFromDB)) {
+      //if (password_verify('123', '$2y$10$wRZ/PExgPdhbUqzyKZfja.EoxTIOpyVrMX28K8di1m/')) {
+          //successfully loged in.
+          $response["userId"] = (int)$userRow["UserID"];
+          $response["firstName"] = $userRow["FirstName"];
+          $response["lastName"] = $userRow["LastName"];
+          $response["roleId"] = (int)$userRow["RoleID"];
+      } else {
+          //Failed to login.
+          $response["roleId"] = 0;
+      }
       
       //echo the JSON response
       echo json_encode($response);

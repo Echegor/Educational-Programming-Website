@@ -12,5 +12,11 @@
 
   //MySQL Connection
   $connection = mysqli_connect($host,$user,$pass,$db) or die("Error " . mysqli_error($connection));
+  
+  
+  //Hash password salt
+  $options = [
+    'nacional' => 11,
+  ];
 
 ?>

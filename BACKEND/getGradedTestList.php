@@ -9,7 +9,7 @@
   $studentId = $jParam['studentId'];
   
   //fetch table rows from mysql db     questionId, questionPrompt, questionWeight, studentAnswer, studentGrade
-  $sql = "SELECT Distinct TblTestGrading.TestID, TblTest.TestName FROM TblTestGrading Inner Join TblTest ON TblTestGrading.TestID = TblTest.TestID WHERE TblTestGrading.UserID = " . $studentId;
+  $sql = "SELECT Distinct TblTestGrading.TestID, TblTest.TestName FROM TblTestGrading Inner Join TblTest ON TblTestGrading.TestID = TblTest.TestID WHERE TblTestGrading.released = 1 AND TblTestGrading.UserID = " . $studentId;
             
   $result = mysqli_query($connection, $sql) or die("Error in Selecting Students " . mysqli_error($connection));
     

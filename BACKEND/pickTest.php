@@ -6,11 +6,12 @@
   $jParam = json_decode(file_get_contents('php://input'), true);
   
   //Values passed.
-  $studentId = $jParam['studentId'];
-  
+  $studentId = (int)$jParam['userId'];
+
   //fetch table rows from mysql db     “testId” : int, “name” : string, “description” : string
-  $sql = "SELECT TestID as testId, TestName as name, TestDesc AS description FROM TblTest";
-            
+  //$sql = "SELECT TestID as testId, TestName as name, TestDesc AS description FROM TblTest";
+  $sql = "SELECT TestID as testId, TestName as name, TestDesc AS description FROM TblTest WHERE TestID NOT IN (SELECT TestID From TblTestGrading WHERE UserID = " . $studentId . " GROUP BY TestID )";
+       
   $result = mysqli_query($connection, $sql) or die("Error in Selecting Students " . mysqli_error($connection));
     
   // Convert MySQL Result Set to PHP Array  

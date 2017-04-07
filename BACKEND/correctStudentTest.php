@@ -6,22 +6,23 @@
   $jTestG = json_decode(file_get_contents('php://input'), true);
   
   //Values passed.
-  $testID = (int)$jTestG['testID'];
+  $testID = (int)$jTestG['testId'];
   $userID = (int)$jTestG['studentId'];
 
   $testSaved = 0;
   
   for($i=0; $i<count($jTestG['questions']); $i++) {
     //Get Values
-    $questionID = (int)$jTestG['questions'][$i]["questionID"];
-    $newGrade = $jTestG['answers'][$i]["newGrade"];
-    $remarks = $jTestG['answers'][$i]["remaks"];
+    $questionID = (int)$jTestG['questions'][$i]["questionId"];
+    $newGrade = $jTestG['questions'][$i]["newGrade"];
+    $remarks = $jTestG['questions'][$i]["remarks"];
     
-    //SQL query tu run against the DB for INSERT.
-    $sql = "UPDATE TblTestGrading SET Grade = " . $newGrde . ", remarks = " . $remaks . " WHERE TestID = " . $testID . " AND UserID = " . $userID . " AND QuestionID = " . $questiongID;
     
+    //SQL query tu run against the DB for UPDATE.
+    $sql = "UPDATE TblTestGrading SET Grade = " . $newGrade . ", remarks = '" . $remarks . "', released = 1 WHERE TestID = " . $testID . " AND UserID = " . $userID . " AND QuestionID = " . $questionID;
+
     //Get Result
-    $res = mysql_query($sql) or die("Failed to save test taken " .mysql_error());
+    $res = mysqli_query($connection, $sql) or die("Failed to save test taken " .mysqli_error($connection));
     
     $testSaved = 1;
   }

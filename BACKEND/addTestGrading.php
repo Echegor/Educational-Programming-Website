@@ -1,35 +1,9 @@
 <?php
 
   require_once "config.php";
-  /*
-  $myObj = array(
-      "testID" : 1,
-      "userID" : 2,
-      "questionID" : 1,
-		  "studentAns" : "AnyAnswer",
-      "grade" : 4.5,
-	    "DateAssigned" : "@{currentdate}",
-  );
-  
-  OR
-  
-  $myObj = array(
-      "testID" : 1,
-      "userID" : 2,
-      "questions"=>
-                [
-                    "questionID" => 1, "studentAns" : "AnyAnswer", "grade" : 4.5
-                    "questionID" => 3, "studentAns" : "AnyAnswer 2", "grade" : 10
-                    "questionID" => 5, "studentAns" : "AnyAnswer 3", "grade" : 0
-                ],
-	    "DateAssigned" : "@{currentdate}",
-  );
-  */
-  
   
   //JSON object
   $jTestG = json_decode(file_get_contents('php://input'), true);
-  //$jQuest = json_decode($myObj, true);
   
   //Values passed.
   $testID = (int)$jTestG['testID'];

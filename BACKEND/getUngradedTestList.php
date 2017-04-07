@@ -6,10 +6,11 @@
   $jQuest = json_decode(file_get_contents('php://input'), true);
   
   //Values passed.
-  $userID = $jQuest['instructorId'];
+  $userID = (int)$jQuest['instructorId'];
   
   //fetch table rows from mysql db
-  $sql = "SELECT TestID AS UngradedTestID, TestName as UngradedTestName FROM TblTest WHERE CreatedBy = " . $userID;
+  //$sql = "SELECT TT.TestID AS UngradedTestID, TT.TestName as UngradedTestName FROM TblTest TT Inner Join TblTestGrading TTG ON TT.TestID = TTG.TestID WHERE TTG.";
+  $sql = "SELECT TT.TestID AS UngradedTestID, TT.TestName as UngradedTestName FROM TblTest TT";
   
   $result = mysqli_query($connection, $sql) or die("Error in Selecting Tests " . mysqli_error($connection));
     

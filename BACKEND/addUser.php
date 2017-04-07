@@ -11,36 +11,37 @@
   $password = $response['password'];
   $roleId = $response['accountType'];
     
+  
+  $hashedPassword = password_hash($password, PASSWORD_BCRYPT, $options);
+
   //if(isset($roleId))
   //{    
     
     //SQL query tu run against the DB for INSERT.
-    $sql = "INSERT INTO TblUser (FirstName, LastName, UserName, Password, RoleID) VALUES('".$firstName."','".$lastName."','".$username."','".$password."', '".$roleId."')";
+    $sql = "INSERT INTO TblUser (FirstName, LastName, UserName, Password, RoleID) VALUES('".$firstName."','".$lastName."','".$username."','".$hashedPassword."', '".$roleId."')";
     
     //Get Result
-    $res = mysqli_query($connection, $sql) or die("Failed to register user in database " .mysql_error($connection));
+    $res = mysqli_query($connection, $sql) or die("Failed to register user in database " . mysql_error($connection));
 
     //mysqli_insert_id returns The value of the AUTO_INCREMENT field that was updated by the previous query.
-    $testID = mysqli_insert_id($connection);
-  /*
+    //$userID = mysqli_insert_id($connection);
+  
     //Check for returned results
     if($res){      
-      //Add userID to json obj
-      $response["UserID"] = (int)$testID;
     
       //Return json with successful transaction
-      $response["TransCompleted"] = 1;
+      $response["response"] = 1;
       
       //echo the JSON response
       echo json_encode($response);
     }else{
       //Return json with successful transaction
-      $response["TransCompleted"] = 0;
+      $response["response"] = 0;
       
       //echo the JSON response
       echo json_encode($response);
     }
-    */
+    
     //close the db connection
     mysqli_close($connection);
 
