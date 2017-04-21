@@ -8,7 +8,7 @@
   //Values passed.
   $questionId = $jQuest['questionId'];
   $title = $jQuest['name'];
-  $weight = (int)$jQuest['weight'];
+  $rank = (int)$jQuest['rank'];
   $subjectId = (int)$jQuest['category'];
   $question = $jQuest['prompt'];
   $qstInput = $jQuest['input'];
@@ -17,7 +17,7 @@
   
   
     //SQL query tu run against the DB for INSERT.
-  $sql = "UPDATE TblQuestion SET QstTitle = '" . $title . "', QstWeight = " . $weight . ", QstSubjectID = " . $subjectId . ", Question = '" . $question . "', QstInput = '" . $qstInput . "', QstOutput = '" . $qstOutput . "', QstFunctionHeader = '" . $functionHeader . "' WHERE QuestionID = " . $questionId;
+  $sql = "UPDATE TblQuestion SET QstTitle = '" . $title . "', QstRank = " . $rank . ", QstSubjectID = " . $subjectId . ", Question = '" . $question . "', QstInput = '" . $qstInput . "', QstOutput = '" . $qstOutput . "', QstFunctionHeader = '" . $functionHeader . "' WHERE QuestionID = " . $questionId;
   
   
   //Get Result

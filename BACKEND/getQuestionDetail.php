@@ -9,7 +9,7 @@
   $questID = (int)$jQuest['questionID'];
 
   //fetch table rows from mysql db
-  $sql = "SELECT QstTitle as name, QstWeight as weight, QstsubjectID as category, Question as prompt, QstInput as input, QstOutput as output, QstFunctionHeader, QstCreatedBy FROM TblQuestion WHERE QuestionID = " . $questID;
+  $sql = "SELECT QstTitle as name, QstRank as rank, QstsubjectID as category, Question as prompt, QstInput as input, QstOutput as output, QstFunctionHeader, QstCreatedBy FROM TblQuestion WHERE QuestionID = " . $questID;
       
   $result = mysqli_query($connection, $sql) or die("Error in Selecting Questions " . mysqli_error($connection));
     

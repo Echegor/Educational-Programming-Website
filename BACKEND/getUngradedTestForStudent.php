@@ -3,6 +3,7 @@
   require_once "config.php";
 
   //JSON object
+ // $string = str_replace(";","%SEMICOLON%",file_get_contents('php://input'));
   $jParam = json_decode(file_get_contents('php://input'), true);
   
   //Values passed.
@@ -26,6 +27,15 @@
 
       while($row = mysqli_fetch_assoc($result))
       {
+          
+          // $row['gradeExplanation'] = str_replace("\"*\"","\\\"*\\\"",$row['gradeExplanation']);
+          // $row['gradeExplanation'] = str_replace("\"-\"","\\\"-\\\"",$row['gradeExplanation']);
+          // $row['gradeExplanation'] = str_replace("\"+\"","\\\"+\\\"",$row['gradeExplanation']);
+          // $row['gradeExplanation'] = str_replace("\"/\"","\\\"/\\\"",$row['gradeExplanation']);
+          // echo "My variable is: " . var_export($row, true) . "END\n";
+          // echo "My variable is: " . $row['gradeExplanation'] . " END\n";
+          // echo "Just exaplanation JSON is: " . var_export(json_decode($row['gradeExplanation'],true), true) . "END\n";
+          // echo "Last Error was " . json_last_error_msg() . " END\n";
           //$jReply["answers"][] = $row;
           $jReply["answers"][] = array(
             'questionID' => $row['QuestionID'],
@@ -35,8 +45,9 @@
             'answer' => $row['StudentAns'],
             'grade' => $row['Grade'],
             'errors' => $row['errors'],
-            'gradeExplanation' => json_decode($row['gradeExplanation'])
+            'gradeExplanation' => json_decode($row['gradeExplanation'],true)
           );
+
       }  
       
       //Convert PHP Array to JSON String

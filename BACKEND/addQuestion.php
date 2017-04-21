@@ -1,24 +1,6 @@
 <?php
 
   require_once "config.php";
-  /*
-  $myObj = array(
-		  "title"     => "Question1",
-	    "question"  => "This is the first question.",
-	    "alternAns" => "",
-	    "weight"    => 5,
-	    "CreatedBy" => 1,
-	    "creationDate" => "@{currentdate}",
-	    "subjectId" => 1,
-	    "qstParameters" =>  array(
-	        array("parameter" => "pm1", "parameterType" => "string" ),
-	        array("parameter" => "pm2", "parameterType" => "int" ),
-	        array("parameter" => "pm3", "parameterType" => "bool" )
-	                      ),
-	    "expectedOutput" => "Here is the OUTPUT"
-  );
-  */
-  
   
   //JSON object
   $jQuest = json_decode(file_get_contents('php://input'), true);
@@ -26,7 +8,7 @@
   //Values passed.
   $title = $jQuest['name'];
   $question = $jQuest['prompt'];
-  $weight = $jQuest['weight'];
+  $rank = $jQuest['rank'];
   $createdBy = (int)$jQuest['createdBy'];
   $subjectId = (int)$jQuest['subjectId'];
   $functionHeader = $jQuest['functionHeader'];
@@ -35,8 +17,8 @@
   
   
   //SQL query tu run against the DB for INSERT.
-  $sql = "INSERT INTO TblQuestion (Question, QstTitle, QstWeight, QstCreatedBy, QstSubjectID, QstFunctionHeader, QstInput, QstOutput) 
-  VALUES('".$question."','".$title."','".$weight."','".$createdBy."','".$subjectId."', '".$functionHeader."', '".$qstInput."', '".$qstOutput."')";
+  $sql = "INSERT INTO TblQuestion (Question, QstTitle, QstRank, QstCreatedBy, QstSubjectID, QstFunctionHeader, QstInput, QstOutput) 
+  VALUES('".$question."','".$title."','".$rank."','".$createdBy."','".$subjectId."', '".$functionHeader."', '".$qstInput."', '".$qstOutput."')";
   
   //Get Result
   $res = mysqli_query($connection, $sql) or die("Failed to save question in database " .mysql_error($connection));

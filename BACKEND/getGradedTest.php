@@ -23,6 +23,10 @@
 
       while($row = mysqli_fetch_assoc($result))
       {
+          $row['gradeExplanation'] = str_replace("\"*\"","\\\"*\\\"",$row['gradeExplanation']);
+          $row['gradeExplanation'] = str_replace("\"-\"","\\\"-\\\"",$row['gradeExplanation']);
+          $row['gradeExplanation'] = str_replace("\"+\"","\\\"+\\\"",$row['gradeExplanation']);
+          $row['gradeExplanation'] = str_replace("\"/\"","\\\"/\\\"",$row['gradeExplanation']);
           //$jReply["answers"][] = $row;
           $jReply["answers"][] = array(
             'questionID' => $row['QuestionID'],

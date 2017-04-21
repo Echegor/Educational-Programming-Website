@@ -38,8 +38,9 @@
     $gradeExplanation = json_encode($jTestG['answers'][$i]['gradeExplanation']);
     $errors = $jTestG['answers'][$i]['errors'];
               
+    echo "GradeExplanation: " .$gradeExplanation. " END\n";
     //SQL query tu run against the DB for INSERT.
-    $sql = "INSERT INTO TblTestGrading (TestID, UserID, QuestionID, StudentAns, Grade, GradeExplanation, errors) VALUES(".$testID.",".$userID.",".$questionID.",'".$answer."',".$grade.",'" . $gradeExplanation . "', '" . $errors . "')";
+    $sql = "INSERT INTO TblTestGrading (TestID, UserID, QuestionID, StudentAns, Grade, GradeExplanation, errors) VALUES(".$testID.",".$userID.",".$questionID.",'".$answer."',".$grade.",'" .mysqli_real_escape_string($connection,$gradeExplanation) ."', '" . $errors . "')";
  
     //echo $questionID . "-" . $testID . "-" . $userID . "-" . $answer . "-" . $grade , "\n";
     //Get Result
